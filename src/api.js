@@ -9,13 +9,32 @@ export async function signUp(req) {
         email: req.email,
         password: req.password
     }
-await axios.post(`${API_END_POINT}/auth/signup`, JSON.stringify(data),
+    await axios.post(`${API_END_POINT}/auth/signup`, JSON.stringify(data),
         {
             headers: {
-                'Content-type' : 'application/json',
+                'Content-type': 'application/json',
             },
         }).then(response => console.log(response));
-        // bsu123@123 12312312
+    // bsu123@123 12312312
+}
+
+export async function signIn(req) {
+
+    console.log(req)
+    const data = {
+        email: req.email,
+        password: req.password
+    }
+    await axios.post(`${API_END_POINT}/auth/signin`, JSON.stringify(data),
+        {
+            headers: {
+                'Content-type': 'application/json',
+            },
+        }).then((response) => {
+            console.log('로그인성공');
+            window.localStorage.setItem('JWT', response.data.access_token)
+        });
+    // bsu123@123 12312312
 
 }
 
