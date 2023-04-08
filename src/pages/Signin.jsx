@@ -16,6 +16,7 @@ const Button = styled.button`
 `;
 
 export default function Signin() {
+    window.history.pushState(null, null, 'signin')
     const navigate = useNavigate();
 
     const emailInput = useRef();

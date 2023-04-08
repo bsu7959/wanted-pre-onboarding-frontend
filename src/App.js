@@ -10,8 +10,8 @@ function App() {
       <Routes>
         <Route path='/' element={window.localStorage.getItem('JWT') ? <Todo /> :<Signin />} />
         <Route path='/signin' element={window.localStorage.getItem('JWT') ? <Todo /> :<Signin />} />
-        <Route path='/signup' element={ window.localStorage.getItem('JWT') ? <Todo /> : <Signup />} />
-        <Route path='/todo' element={<Todo />} />
+        <Route path='/signup' element={window.localStorage.getItem('JWT') ? <Todo /> : <Signup />} />
+        <Route path='/todo' element={window.localStorage.getItem('JWT') ? <Todo /> : <Signin />} />
       </Routes>
     </BrowserRouter>
   );
