@@ -21,6 +21,7 @@ const Button = styled.button`
 
 
 export default function Signup() {
+
     const emailInput = useRef();
     const passwordInput = useRef();
     const signupButton = useRef();

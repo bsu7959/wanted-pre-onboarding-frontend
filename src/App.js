@@ -4,12 +4,13 @@ import Signin from './pages/Signin';
 import Todo from './pages/Todo';
 
 function App() {
+
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path='/' element={<Signin />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/signin' element={<Signin />} />
+        <Route path='/' element={window.localStorage.getItem('JWT') ? <Todo /> :<Signin />} />
+        <Route path='/signin' element={window.localStorage.getItem('JWT') ? <Todo /> :<Signin />} />
+        <Route path='/signup' element={ window.localStorage.getItem('JWT') ? <Todo /> : <Signup />} />
         <Route path='/todo' element={<Todo />} />
       </Routes>
     </BrowserRouter>

@@ -25,15 +25,20 @@ export async function signIn(req) {
         email: req.email,
         password: req.password
     }
+    let res = false;
     await axios.post(`${API_END_POINT}/auth/signin`, JSON.stringify(data),
         {
             headers: {
                 'Content-type': 'application/json',
             },
-        }).then((response) => {
+        })
+        .then((response) => {
             console.log('로그인성공');
-            window.localStorage.setItem('JWT', response.data.access_token)
-        });
+            window.localStorage.setItem('JWT', response.data.access_token);
+            res = true;
+        })
+        .catch((error) => {res = false;});
+        return res;
     // bsu123@123 12312312
 
 }

@@ -1,6 +1,7 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import styled from '@emotion/styled'
 import { signIn } from '../api.js'
+import { useNavigate } from 'react-router-dom';
 
 const Base = styled.div`
     
@@ -15,6 +16,8 @@ const Button = styled.button`
 `;
 
 export default function Signin() {
+    const navigate = useNavigate();
+
     const emailInput = useRef();
     const passwordInput = useRef();
 
@@ -27,11 +30,16 @@ export default function Signin() {
 
         const email = emailInput.current.value;
         const password = passwordInput.current.value;
-        await signIn({
+        const res = await signIn({
             'email' : email,
             'password' : password
         })
-
+        if(res) {
+            alert('로그인 성공')
+            navigate('/todo')
+        }else {
+            alert('로그인 실패')
+        }
     }
 
     return (
