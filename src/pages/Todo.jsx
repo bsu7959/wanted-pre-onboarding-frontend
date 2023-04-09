@@ -4,11 +4,15 @@ import styled from '@emotion/styled'
 import { CreateTodo, GetTodos, UpdateTodo, DeleteTodo } from '../api.js'
 
 const Base = styled.div`
-    
+    margin: 0 auto;
+    width: 400px;
 `;
 
+const Title = styled.h1``
+
 const NewTodo = styled.input`
-    
+    margin-right: 5px;
+    margin-bottom: 10px;
 `
 
 const NewTodoBtn = styled.button`
@@ -16,7 +20,7 @@ const NewTodoBtn = styled.button`
 `
 
 const Li = styled.li`
-    
+    margin-bottom: 10px;
 `
 
 const Label = styled.label`
@@ -24,23 +28,25 @@ const Label = styled.label`
 `
 
 const Checkbox = styled.input`
-    
+    margin-right: 5px;
 `
 
 const TodoName = styled.span`
-    
+    margin-right: 5px;
 `
 
 const Button = styled.button`
-    
+    margin-right: 5px;
 `
 
 const ModifyInput = styled.input`
     display: none;
+    margin-right: 5px;
 `
 
 const SubmitButton = styled.button`
     display: none;
+    margin-right: 5px;
 `
 
 const CancelButton = styled.button`
@@ -173,6 +179,7 @@ export default function Todo(props) {
     return <>
         {window.localStorage.getItem('JWT') ?
             <Base>
+            <Title>TodoList</Title>
                 <NewTodo data-testid="new-todo-input" ref={newTodo}></NewTodo>
                 <NewTodoBtn data-testid="new-todo-add-button" onClick={() => addClick()}>추가</NewTodoBtn>
                 {todoList()}

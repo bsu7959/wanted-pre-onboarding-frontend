@@ -4,20 +4,27 @@ import { signUp } from '../api.js'
 import { useNavigate } from 'react-router-dom';
 
 const Base = styled.div`
-    
+    margin: 0 auto;
+    width: 400px;
 `;
-
-const InputContainser = styled.div`
+const Title = styled.h1`
     
 `
-
 const Input = styled.input`
-    
+    display: inline-block;
+    margin-bottom: 10px;
 `;
 
 const Button = styled.button`
-    
+    margin-right: 5px;
 `;
+
+
+const InputContainer = styled.div`
+    
+`
+
+
 
 
 
@@ -50,7 +57,7 @@ export default function Signup() {
         }else {
             alert('회원가입 실패')
         }
-        
+
 
     }
     // 키입력시 이메일과 비밀면호를 정규식을 이용해 검증하고 회원가입 버튼을 활성화/비활성화 합니다
@@ -76,9 +83,9 @@ export default function Signup() {
 
     // JWT가 있으면 렌더링하지않습니다.
     return <>{window.localStorage.getItem('JWT') ? '' :
-        <Base>Signup <br />
-            <InputContainser>이메일 : <Input data-testid="email-input" ref={emailInput} onChange={e => onChange(e)}></Input></InputContainser>
-            <InputContainser>비밀번호 : <Input data-testid="password-input" ref={passwordInput} onChange={e => onChange(e)}></Input></InputContainser>
+        <Base><Title>Signup</Title>
+            <InputContainer>이메일 : <Input data-testid="email-input" ref={emailInput} onChange={e => onChange(e)}></Input></InputContainer>
+            <InputContainer>비밀번호 : <Input data-testid="password-input" ref={passwordInput} onChange={e => onChange(e)}></Input></InputContainer>
             <Button data-testid="signup-button" ref={signupButton} onClick={e => onClick(e)} disabled={disable}>회원가입</Button>
         </Base>}
     </>
