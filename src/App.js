@@ -5,7 +5,7 @@ import Signin from './pages/Signin';
 import Todo from './pages/Todo';
 
 function App() {
-  console.log('app.js 실행')
+  // 로그인시 못받아온 userid 대신 email을 setState했습니다.
   const [ userId, setUserId ] = useState('');
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>

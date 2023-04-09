@@ -42,6 +42,7 @@ export default function Signin(props) {
             'password' : password
         })
         if(res) {
+            // 로그인시 못받아온 userid 대신 email을 setState했습니다.
             props.setUserId(email)
             alert('로그인 성공')
             navigate('/todo')
@@ -55,7 +56,7 @@ export default function Signin(props) {
         <Input data-testid="email-input" ref={emailInput}></Input>
         <Input data-testid="password-input" ref={passwordInput}></Input>
         <Button data-testid="signin-button" onClick={e => signinClick()}>로그인</Button>
-        <Button data-testid="to-signup-button" onClick={e => onClick()}>회원가입</Button>
+        <Button onClick={e => onClick()}>회원가입</Button>
     </Base>}
         
     </>

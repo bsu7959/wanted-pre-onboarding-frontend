@@ -5,6 +5,7 @@ const API_END_POINT = 'https://www.pre-onboarding-selection-task.shop';
 
 // 회원가입
 export async function signUp(req) {
+    let res = false;
     const data = {
         email: req.email,
         password: req.password
@@ -14,7 +15,9 @@ export async function signUp(req) {
             headers: {
                 'Content-type': 'application/json',
             },
-        }).then(response => console.log(response));
+        }).then(response => res = true)
+        .catch(error => res = false)
+    return res;
     // bsu123@123 12312312
 }
 

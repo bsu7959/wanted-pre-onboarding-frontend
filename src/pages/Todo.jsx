@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled'
 import { CreateTodo, GetTodos, UpdateTodo, DeleteTodo } from '../api.js'
 
@@ -48,6 +49,7 @@ const CancelButton = styled.button`
 
 
 export default function Todo(props) {
+    const navigate = useNavigate();
     const newTodo = useRef();
     const todoRef = useRef([]);
     const [todos, setTodos] = useState([]);
@@ -58,8 +60,9 @@ export default function Todo(props) {
     const cancelRef = useRef([]);
 
     useEffect(() => {
-        console.log('todo 첫실행')
-        window.history.pushState(null, null, 'todo')
+        if(!window.localStorage.getItem('JWT')) {
+            navigate('/signin')
+        }
         getTodo()
     }, [])
 
@@ -152,9 +155,9 @@ export default function Todo(props) {
     // 반복요소인 todo 리스트 요소 생성 함수
     const todoList = () => {
         if(todos != undefined) {
-            return todos.map((el, index) => <Li >
+            return todos.map((el, index) => <Li key={index}>
             <Label>
-                <Checkbox type={'checkbox'} data-idx={index} checked={el.isCompleted} onClick={(e) => onCheck(e)}/>
+                <Checkbox type={'checkbox'} data-idx={index} defaultChecked={el.isCompleted} onClick={(e) => onCheck(e)}/>
                 <TodoName ref={elem => todoRef.current[index] = elem}>{el.todo}</TodoName>
                 <ModifyInput data-testid='modify-input' data-idx={index} ref={elem => modifyInputRef.current[index] = elem} type={'text'} />
             </Label>
