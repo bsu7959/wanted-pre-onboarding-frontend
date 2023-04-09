@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from '@emotion/styled'
-import { CreateTodo, GetTodos } from '../api.js'
+import { CreateTodo, GetTodos, UpdateTodo } from '../api.js'
 
 const Base = styled.div`
     
@@ -55,10 +55,24 @@ export default function Todo(props) {
         window.history.pushState(null, null, 'todo')
         getTodo()
     }, [])
+
     const onClick = (e) => {
-        console.log(e.target)
-        console.log(todoRef)
-        GetTodos()
+        console.log(e)
+    }
+
+    const onCheck = async (e) => {
+        todos[e.target.dataset.idx].isCompleted = e.target.checked;
+        setTodos(todos);
+        console.log(e.target.nextElementSibling.innerText)
+        const res = await UpdateTodo({
+            "id": todos[e.target.dataset.idx].id,
+            "todo":e.target.nextElementSibling.innerText,
+            "isCompleted":e.target.checked
+        })
+        if(res) {
+            getTodo();
+        }
+
     }
 
     const getTodo = async () => {
@@ -74,14 +88,16 @@ export default function Todo(props) {
             "userId": props.userId
         }
         const res = await CreateTodo(data)
+        if(res) {
+            getTodo()
+        }
     }
 
     const todoList = () => {
-        console.log(todos)
         if(todos != undefined) {
             return todos.map((el, index) => <Li ref={elem => todoRef.current[index] = elem}>
             <Label>
-                <Checkbox type={'checkbox'} />
+                <Checkbox type={'checkbox'} data-idx={index} checked={el.isCompleted} onClick={(e) => onCheck(e)}/>
                 <TodoName>{el.todo}</TodoName>
                 <ModifyInput data-testid='modify-input' type={'text'} />
             </Label>

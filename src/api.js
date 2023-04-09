@@ -81,3 +81,22 @@ export async function GetTodos() {
     return res;
 }
 
+export async function UpdateTodo(req) {
+    const data = {
+        "todo": req.todo,
+        "isCompleted": req.isCompleted
+    }
+    let res = false;
+    await axios.put(`${API_END_POINT}/todos/${req.id}`, JSON.stringify(data),{
+        headers: {
+            'Authorization': `Bearer ${window.localStorage.getItem('JWT')}`,
+            'Content-type': 'application/json'
+        },
+    })
+    .then((response) => {
+        console.log(response)
+        res = true
+    })
+    return res;
+}
+
