@@ -51,7 +51,6 @@ export default function Todo(props) {
     const newTodo = useRef();
     const todoRef = useRef([]);
     const [todos, setTodos] = useState([]);
-    const modifying = [];
     const modifyInputRef = useRef([]);
     const modifyRef = useRef([]);
     const deleteRef = useRef([]);
@@ -136,7 +135,7 @@ export default function Todo(props) {
 
     }
 
-    // todo 추가버튼 클릭시 함수
+    // todo 추가버튼 클릭시 함수 -- 로그인시 userid를 받지못해 이메일로 대체했습니다. 기본구현에 문젠없는것 같아 그렇습니다.
     const addClick = async () => {
         const data = {
             "id": 1,

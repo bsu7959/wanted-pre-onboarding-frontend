@@ -3,9 +3,8 @@ import axios from 'axios';
 
 const API_END_POINT = 'https://www.pre-onboarding-selection-task.shop';
 
+// 회원가입
 export async function signUp(req) {
-
-    console.log(req)
     const data = {
         email: req.email,
         password: req.password
@@ -19,8 +18,8 @@ export async function signUp(req) {
     // bsu123@123 12312312
 }
 
+// 로그인 -- 로그인시 JWT를 받아오지만 userid는 받아오지않아 email로 대체해서 사용했습니다
 export async function signIn(req) {
-    console.log(req)
     const data = {
         email: req.email,
         password: req.password
@@ -33,8 +32,6 @@ export async function signIn(req) {
             },
         })
         .then((response) => {
-            console.log(response.data)
-            console.log('로그인성공');
             window.localStorage.setItem('JWT', response.data.access_token);
             res = true;
         })
@@ -42,6 +39,7 @@ export async function signIn(req) {
         return res;
 }
 
+// todo 추가
 export async function CreateTodo(req) {
     const data = {
         "id" : req.id,
@@ -49,7 +47,6 @@ export async function CreateTodo(req) {
         "isCompleted" : req.isCompleted,
         "userId" : req.userId
     }
-    console.log(data)
 
     let res = '';
     await axios.post(`${API_END_POINT}/todos`, JSON.stringify(data),
@@ -60,13 +57,13 @@ export async function CreateTodo(req) {
             },
         })
         .then((response) => {
-            console.log('todo추가 성공');
             res = true;
         })
         .catch((error) => {res = false;});
         return res;
 }
 
+// todo 불러오기
 export async function GetTodos() {
     let res = '';
     await axios.get(`${API_END_POINT}/todos`, {
@@ -75,12 +72,12 @@ export async function GetTodos() {
         },
     })
     .then((response) => {
-        console.log(response.data)
         res = response.data
     })
     return res;
 }
 
+// todo 수정
 export async function UpdateTodo(req) {
     const data = {
         "todo": req.todo,
@@ -94,16 +91,15 @@ export async function UpdateTodo(req) {
         },
     })
     .then((response) => {
-        console.log(response)
         res = true
     })
     .catch((error) => {
-        console.log(error);
         res = false;
     })
     return res;
 }
 
+// todo 삭제
 export async function DeleteTodo(req) {
     let res = false;
     await axios.delete(`${API_END_POINT}/todos/${req}`, {
@@ -112,11 +108,9 @@ export async function DeleteTodo(req) {
         }
     })
     .then((response) => {
-        console.log(response);
         res = true;
     })
     .catch((error) => {
-        console.log(error);
         res = false;
     })
     return res;

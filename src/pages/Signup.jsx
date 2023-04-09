@@ -23,8 +23,8 @@ const Button = styled.button`
 
 export default function Signup() {
     const navigate = useNavigate();
+    // 회원가입 화면 진입시 JWT가 있으면 todo로 이동합니다
     useEffect(() => {
-        console.log('signin 첫실행')
         if(window.localStorage.getItem('JWT')) {
             navigate('/todo')
         }
@@ -38,7 +38,6 @@ export default function Signup() {
 
     const onClick = (e) => {
 
-        console.log('회원가입 버튼 클릭');
 
         const email = emailInput.current.value;
         const password = passwordInput.current.value;
@@ -49,9 +48,8 @@ export default function Signup() {
 
 
         }
-
+        // 키입력시 이메일과 비밀면호를 정규식을 이용해 검증하고 회원가입 버튼을 활성화/비활성화 합니다
         const onChange = (e) => {
-            console.log('키 입력');
             const email = emailInput.current.value;
             const password = passwordInput.current.value;
 
@@ -59,19 +57,11 @@ export default function Signup() {
             const passwordExptext = /.{8,}/;
 
             if (emailExptext.test(email) == false) {
-
-                //alert("이메일형식이 올바르지 않습니다.");
-
-                //emailInput.current.focus();
                 setDisable(true);
                 return false;
             }
 
             if (passwordExptext.test(password) == false) {
-
-                //alert("비밀번호는 8자 이상이어야 합니다.");
-
-                //passwordInput.current.focus();
                 setDisable(true);
                 return false;
             }
@@ -79,6 +69,7 @@ export default function Signup() {
             setDisable(false);
         }
 
+        // JWT가 있으면 렌더링하지않습니다.
         return  <>{window.localStorage.getItem('JWT') ? '':
             <Base>Signup <br />
                 <InputContainser>이메일 : <Input data-testid="email-input" ref={emailInput} onChange={e => onChange(e)}></Input></InputContainser>

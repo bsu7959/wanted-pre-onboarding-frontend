@@ -16,12 +16,12 @@ const Button = styled.button`
 `;
 
 export default function Signin(props) {
+    // 로그인화면 첫 진입시 JWT이 존재하면 todo로 이동 useNavigate사용
     useEffect(() => {
-        console.log('signin 첫실행')
         if(window.localStorage.getItem('JWT')) {
             navigate('/todo')
         }
-        
+
     }, [])
     
     const navigate = useNavigate();
@@ -29,13 +29,12 @@ export default function Signin(props) {
     const emailInput = useRef();
     const passwordInput = useRef();
 
-    const onClick = (e) => {
-
+    const onClick = () => {
+        navigate('/signup')
     }
 
-    const signinClick = async (e) => {
-        console.log('로그인 버튼 클릭');
-
+    // 로그인 함수 api.js의 signIn 함수를 사용합니다
+    const signinClick = async () => {
         const email = emailInput.current.value;
         const password = passwordInput.current.value;
         const res = await signIn({
@@ -50,13 +49,13 @@ export default function Signin(props) {
             alert('로그인 실패')
         }
     }
-
+    // JWT가 있으면 렌더링을 하지 않습니다.
     return <>
         {window.localStorage.getItem('JWT') ? '':<Base>Signin <br/>
         <Input data-testid="email-input" ref={emailInput}></Input>
         <Input data-testid="password-input" ref={passwordInput}></Input>
-        <Button data-testid="signin-button" onClick={e => signinClick(e)}>로그인</Button>
-        <Button data-testid="to-signup-button" onClick={e => onClick(e)}>회원가입</Button>
+        <Button data-testid="signin-button" onClick={e => signinClick()}>로그인</Button>
+        <Button data-testid="to-signup-button" onClick={e => onClick()}>회원가입</Button>
     </Base>}
         
     </>
