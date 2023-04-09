@@ -21,6 +21,7 @@ export default function Signin(props) {
         if(window.localStorage.getItem('JWT')) {
             navigate('/todo')
         }
+        
     }, [])
     
     const navigate = useNavigate();

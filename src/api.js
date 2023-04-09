@@ -33,6 +33,7 @@ export async function signIn(req) {
             },
         })
         .then((response) => {
+            console.log(response.data)
             console.log('로그인성공');
             window.localStorage.setItem('JWT', response.data.access_token);
             res = true;
@@ -64,5 +65,19 @@ export async function CreateTodo(req) {
         })
         .catch((error) => {res = false;});
         return res;
+}
+
+export async function GetTodos() {
+    let res = '';
+    await axios.get(`${API_END_POINT}/todos`, {
+        headers: {
+            'Authorization': `Bearer ${window.localStorage.getItem('JWT')}`
+        },
+    })
+    .then((response) => {
+        console.log(response.data)
+        res = response.data
+    })
+    return res;
 }
 
