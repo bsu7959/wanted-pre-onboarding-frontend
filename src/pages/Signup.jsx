@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import { signUp } from '../api.js'
+import { useNavigate } from 'react-router-dom';
 
 const Base = styled.div`
     
@@ -21,6 +22,13 @@ const Button = styled.button`
 
 
 export default function Signup() {
+    const navigate = useNavigate();
+    useEffect(() => {
+        console.log('signin 첫실행')
+        if(window.localStorage.getItem('JWT')) {
+            navigate('/todo')
+        }
+    }, [])
 
     const emailInput = useRef();
     const passwordInput = useRef();
@@ -71,11 +79,11 @@ export default function Signup() {
             setDisable(false);
         }
 
-        return (
+        return  <>{window.localStorage.getItem('JWT') ? '':
             <Base>Signup <br />
                 <InputContainser>이메일 : <Input data-testid="email-input" ref={emailInput} onChange={e => onChange(e)}></Input></InputContainser>
                 <InputContainser>비밀번호 : <Input data-testid="password-input" ref={passwordInput} onChange={e => onChange(e)}></Input></InputContainser>
                 <Button data-testid="signup-button" ref={signupButton} onClick={e => onClick(e)} disabled={disable}>회원가입</Button>
-            </Base>
-        )
+            </Base>}
+        </>
     }

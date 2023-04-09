@@ -15,8 +15,14 @@ const Button = styled.button`
     
 `;
 
-export default function Signin() {
-    window.history.pushState(null, null, 'signin')
+export default function Signin(props) {
+    useEffect(() => {
+        console.log('signin 첫실행')
+        if(window.localStorage.getItem('JWT')) {
+            navigate('/todo')
+        }
+    }, [])
+    
     const navigate = useNavigate();
 
     const emailInput = useRef();
@@ -36,6 +42,7 @@ export default function Signin() {
             'password' : password
         })
         if(res) {
+            props.setUserId(email)
             alert('로그인 성공')
             navigate('/todo')
         }else {
@@ -43,12 +50,13 @@ export default function Signin() {
         }
     }
 
-    return (
-        <Base>Signin <br/>
-            <Input data-testid="email-input" ref={emailInput}></Input>
-            <Input data-testid="password-input" ref={passwordInput}></Input>
-            <Button data-testid="signin-button" onClick={e => signinClick(e)}>로그인</Button>
-            <Button data-testid="to-signup-button" onClick={e => onClick(e)}>회원가입</Button>
-        </Base>
-    )
+    return <>
+        {window.localStorage.getItem('JWT') ? '':<Base>Signin <br/>
+        <Input data-testid="email-input" ref={emailInput}></Input>
+        <Input data-testid="password-input" ref={passwordInput}></Input>
+        <Button data-testid="signin-button" onClick={e => signinClick(e)}>로그인</Button>
+        <Button data-testid="to-signup-button" onClick={e => onClick(e)}>회원가입</Button>
+    </Base>}
+        
+    </>
 }

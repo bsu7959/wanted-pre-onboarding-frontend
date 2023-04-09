@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const API_END_POINT = 'https://www.pre-onboarding-selection-task.shop';
 
 export async function signUp(req) {
@@ -19,7 +20,6 @@ export async function signUp(req) {
 }
 
 export async function signIn(req) {
-
     console.log(req)
     const data = {
         email: req.email,
@@ -39,7 +39,30 @@ export async function signIn(req) {
         })
         .catch((error) => {res = false;});
         return res;
-    // bsu123@123 12312312
+}
 
+export async function CreateTodo(req) {
+    const data = {
+        "id" : req.id,
+        "todo" : req.todo,
+        "isCompleted" : req.isCompleted,
+        "userId" : req.userId
+    }
+    console.log(data)
+
+    let res = '';
+    await axios.post(`${API_END_POINT}/todos`, JSON.stringify(data),
+        {
+            headers: {
+                'Authorization': `Bearer ${window.localStorage.getItem('JWT')}`,
+                'Content-type': 'application/json',
+            },
+        })
+        .then((response) => {
+            console.log('todo추가 성공');
+            res = true;
+        })
+        .catch((error) => {res = false;});
+        return res;
 }
 
