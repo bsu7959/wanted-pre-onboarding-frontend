@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react'
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
@@ -9,7 +9,7 @@ function App() {
   const [ userId, setUserId ] = useState('');
   return (
     // 잘못된 경로로 이동시 로그인페이지로 이동됩니다.
-    <HashRouter >
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path='*' element={<Signin userId={userId} setUserId={setUserId}/>} />
         <Route path='/' element={<Signin userId={userId} setUserId={setUserId}/>} />
@@ -17,7 +17,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/todo' element={<Todo userId={userId} setUserId={setUserId}/>} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
