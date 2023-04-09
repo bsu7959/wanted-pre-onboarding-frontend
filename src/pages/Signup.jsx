@@ -35,6 +35,8 @@ export default function Signup() {
         if (window.localStorage.getItem('JWT')) {
             navigate('/todo')
         }
+        window.history.pushState(null,null,'signup')
+
     }, [])
 
     const emailInput = useRef();

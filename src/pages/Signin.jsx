@@ -28,6 +28,7 @@ export default function Signin(props) {
         if (window.localStorage.getItem('JWT')) {
             navigate('/todo')
         }
+        window.history.pushState(null,null,'signin')
 
     }, [])
 

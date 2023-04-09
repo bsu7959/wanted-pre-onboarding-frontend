@@ -8,8 +8,10 @@ function App() {
   // 로그인시 못받아온 userid 대신 email을 setState했습니다.
   const [ userId, setUserId ] = useState('');
   return (
+    // 잘못된 경로로 이동시 로그인페이지로 이동됩니다.
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
+        <Route path='*' element={<Signin userId={userId} setUserId={setUserId}/>} />
         <Route path='/' element={<Signin userId={userId} setUserId={setUserId}/>} />
         <Route path='/signin' element={<Signin userId={userId} setUserId={setUserId}/>} />
         <Route path='/signup' element={<Signup />} />
