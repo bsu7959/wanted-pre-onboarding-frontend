@@ -156,6 +156,7 @@ export default function Todo(props) {
         }
         const res = await CreateTodo(data)
         if(res) {
+            newTodo.current.value = '';
             getTodo()
         }
     }
