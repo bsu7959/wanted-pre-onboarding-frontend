@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from '@emotion/styled'
-import { CreateTodo, GetTodos, UpdateTodo } from '../api.js'
+import { CreateTodo, GetTodos, UpdateTodo, DeleteTodo } from '../api.js'
 
 const Base = styled.div`
     
@@ -107,6 +107,14 @@ export default function Todo(props) {
         }
     }
 
+    const onDeleteClick = async (e) => {
+        const idx = e.target.dataset.todo_idx;
+        const res = await DeleteTodo(idx);
+        if(res) {
+            getTodo();
+        }
+    }
+
     // 체크박스 클릭시 api.js의 UpdateTodo로 값을 업데이트 후 getTodo함수를 통해 새로운 데이터를 불러옴
     const onCheck = async (e) => {
         todos[e.target.dataset.idx].isCompleted = e.target.checked;
@@ -152,7 +160,7 @@ export default function Todo(props) {
                 <ModifyInput data-testid='modify-input' data-idx={index} ref={elem => modifyInputRef.current[index] = elem} type={'text'} />
             </Label>
             <Button data-testid="modify-button" data-idx={index} ref={elem => modifyRef.current[index] = elem} onClick={(e) => onModifyClick(e)}>수정</Button>
-            <Button data-testid="delete-button" data-idx={index} ref={elem => deleteRef.current[index] = elem}>삭제</Button>
+            <Button data-testid="delete-button" data-idx={index} data-todo_idx={el.id} ref={elem => deleteRef.current[index] = elem} onClick={(e) => onDeleteClick(e)}>삭제</Button>
             <SubmitButton data-testid="submit-button" data-idx={index} ref={elem => submitRef.current[index] = elem} onClick={(e) => onSubmitClick(e)}>제출</SubmitButton>
             <CancelButton data-testid="cancel-button" data-idx={index} ref={elem => cancelRef.current[index] = elem} onClick={(e) => onCancelClick(e)}>취소</CancelButton>
         </Li>)

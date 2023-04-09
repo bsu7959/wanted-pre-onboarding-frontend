@@ -97,6 +97,28 @@ export async function UpdateTodo(req) {
         console.log(response)
         res = true
     })
+    .catch((error) => {
+        console.log(error);
+        res = false;
+    })
+    return res;
+}
+
+export async function DeleteTodo(req) {
+    let res = false;
+    await axios.delete(`${API_END_POINT}/todos/${req}`, {
+        headers: {
+            'Authorization': `Bearer ${window.localStorage.getItem('JWT')}`
+        }
+    })
+    .then((response) => {
+        console.log(response);
+        res = true;
+    })
+    .catch((error) => {
+        console.log(error);
+        res = false;
+    })
     return res;
 }
 
